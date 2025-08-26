@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Request New App | Stybase{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Request a New App</h2>
+    <p class="text-muted">Fill out the form below to submit your app request for approval.</p>
+
+    <form method="POST" action="{{ url_for('request_app') }}" class="mt-4">
+        <div class="mb-3">
+            <label for="app_name" class="form-label">App Name</label>
+            <input type="text" class="form-control" id="app_name" name="app_name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="redirect_uri" class="form-label">Redirect URI</label>
+            <input type="url" class="form-control" id="redirect_uri" name="redirect_uri" required>
+            <small class="form-text text-muted">Where users will be redirected after OAuth authorization.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit Request</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

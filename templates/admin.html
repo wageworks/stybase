@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}stybase Admin | Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <h2 class="mb-4">stybase Admin Dashboard</h2>
+    <p>Welcome, <strong>{{ user.username }}</strong>! You have full administrative access.</p>
+
+    
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+
+        <!-- Manage Developer Requests -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-plus fa-3x mb-3"></i>
+                    <h5 class="card-title">Developer app Requests</h5>
+                    <p class="card-text">Review and approve or deny new developer account requests.</p>
+                    <a href="{{ url_for('manage_app_requests') }}" class="btn btn-primary">Review Requests</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Registered Apps -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-th-large fa-3x mb-3"></i>
+                    <h5 class="card-title">Registered Apps</h5>
+                    <p class="card-text">View, edit, or delete apps registered by developers.</p>
+                    <a href="{{ url_for('manage_apps') }}" class="btn btn-primary">View Apps</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- OAuth Access Logs -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-lock fa-3x mb-3"></i>
+                    <h5 class="card-title">OAuth Logs</h5>
+                    <p class="card-text">Track user authorizations, revocations, and app access history.</p>
+                    <a href="{{ url_for('oauth.oauth_logs') }}" class="btn btn-primary">View Logs</a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Revoke App Access -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-ban fa-3x mb-3"></i>
+                    <h5 class="card-title">Revoke Access</h5>
+                    <p class="card-text">Force revoke app access for users or revoke developer apps entirely.</p>
+                    <a href="{{ url_for('revoke_access') }}" class="btn btn-danger">Revoke Access</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Users -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x mb-3"></i>
+                    <h5 class="card-title">Manage Users</h5>
+                    <p class="card-text">View all stybase users and modify roles or account status.</p>
+                    <a href="{{ url_for('manage_users') }}" class="btn btn-primary">Manage Users</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

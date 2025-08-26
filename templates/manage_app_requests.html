@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Pending App Requests</h2>
+
+    {% if app_requests %}
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Requested By</th>
+                <th>App Name</th>
+                <th>Redirect URI</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in app_requests %}
+            <tr>
+                <td>{{ req.id }}</td>
+                <td>{{ req.user_id }}</td>
+                <td>{{ req.app_name }}</td>
+                <td>{{ req.redirect_uri }}</td>
+                <td>{{ req.description }}</td>
+                <td>
+                    <a href="{{ url_for('approve_app_request', request_id=req.id) }}" class="btn btn-success btn-sm">Approve</a>
+                    <a href="{{ url_for('deny_app_request', request_id=req.id) }}" class="btn btn-danger btn-sm">Deny</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No pending app requests.</p>
+    {% endif %}
+</div>
+{% endblock %}

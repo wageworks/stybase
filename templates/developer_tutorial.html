@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}Developer Tutorial | Stybase{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Developer Guide for "{{ app.name }}"</h2>
+    <p class="text-muted">Everything you need to start using the Stybase API with your app.</p>
+
+    <!-- ---------------- App Credentials ---------------- -->
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h5>App Credentials</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Client ID:</strong> {{ app.client_id }}</li>
+                <li class="list-group-item"><strong>Client Secret:</strong> {{ app.client_secret }}</li>
+                <li class="list-group-item"><strong>Redirect URI:</strong> {{ app.redirect_uri }}</li>
+                <li class="list-group-item"><strong>App Password:</strong> {{ app.app_password }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ---------------- OAuth Flow ---------------- -->
+    <div class="card mt-4">
+        <div class="card-header bg-success text-white">
+            <h5>OAuth 2.0 Flow</h5>
+        </div>
+        <div class="card-body">
+            <ol>
+                <li>
+                    <strong>Authorize User</strong><br>
+                    Redirect the user to the stybase authorization page:
+<pre class="bg-light p-2 rounded">
+GET /oauth/authorize
+?client_id={{ app.client_id }}
+&redirect_uri={{ app.redirect_uri }}
+&response_type=code
+&scope=read
+</pre>
+                    <strong>cURL Example:</strong>
+<pre class="bg-light p-2 rounded">
+curl -X GET "https://stybase.io/oauth/authorize?client_id={{ app.client_id }}&redirect_uri={{ app.redirect_uri }}&response_type=code&scope=read"
+</pre>
+                </li>
+
+                <li>
+                    <strong>Exchange Code for Access Token</strong><br>
+                    After the user authorizes, exchange the code for an access token:
+<pre class="bg-light p-2 rounded">
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{ app.client_id }}
+client_secret={{ app.client_secret }}
+code=THE_CODE_YOU_RECEIVED
+grant_type=authorization_code
+redirect_uri={{ app.redirect_uri }}
+</pre>
+                    <strong>cURL Example:</strong>
+<pre class="bg-light p-2 rounded">
+curl -X POST "https://stybase.io/oauth/token" \
+ -d "client_id={{ app.client_id }}" \
+ -d "client_secret={{ app.client_secret }}" \
+ -d "code=THE_CODE_YOU_RECEIVED" \
+ -d "grant_type=authorization_code" \
+ -d "redirect_uri={{ app.redirect_uri }}"
+</pre>
+                    <strong>Sample Response:</strong>
+<pre class="bg-light p-2 rounded">
+{
+    "access_token": "abcd1234efgh5678",
+    "refresh_token": "refresh123456",
+    "expires_in": 3600,
+    "token_type": "Bearer"
+}
+</pre>
+                </li>
+
+                <li>
+                    <strong>Use the Access Token</strong><br>
+                    Include the token in API requests:
+<pre class="bg-light p-2 rounded">
+Authorization: Bearer YOUR_ACCESS_TOKEN
+</pre>
+                    <strong>Python Example:</strong>
+<pre class="bg-light p-2 rounded">
+import requests
+
+headers = {"Authorization": "Bearer YOUR_ACCESS_TOKEN"}
+resp = requests.get("https://stybase.io/api/userinfo", headers=headers)
+print(resp.json())
+</pre>
+                    <strong>Sample Response:</strong>
+<pre class="bg-light p-2 rounded">
+{
+    "username": "user2",
+    "email": "lol@lol.lol",
+    "name": "test meidiot",
+    "phone": "200 19856 7890",
+    "app_password": "12121212"
+}
+</pre>
+                </li>
+
+                <li>
+                    <strong>Refresh Token (Optional)</strong><br>
+                    Use the refresh token to get a new access token:
+<pre class="bg-light p-2 rounded">
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=refresh_token
+refresh_token=YOUR_REFRESH_TOKEN
+client_id={{ app.client_id }}
+client_secret={{ app.client_secret }}
+</pre>
+                    <strong>Sample Response:</strong>
+<pre class="bg-light p-2 rounded">
+{
+    "access_token": "new_access_token_1234",
+    "expires_in": 3600,
+    "token_type": "Bearer"
+}
+</pre>
+                </li>
+
+                <li>
+                    <strong>Revoke Authorization (Optional)</strong><br>
+                    Revoke a user's authorization if needed:
+<pre class="bg-light p-2 rounded">
+POST /oauth/revoke
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{ app.client_id }}
+user_id=USER_ID   # optional
+</pre>
+                    <strong>Sample Response:</strong>
+<pre class="bg-light p-2 rounded">
+{
+    "success": true,
+    "message": "User authorization revoked"
+}
+</pre>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- ---------------- Tips & Notes ---------------- -->
+    <div class="card mt-4 mb-5">
+        <div class="card-header bg-info text-white">
+            <h5>Tips & Notes</h5>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Keep your <strong>Client Secret</strong> private. Never expose it in the frontend.</li>
+                <li>Exchange authorization codes <strong>immediately</strong> as they expire quickly.</li>
+                <li>Always use <strong>HTTPS</strong> for API requests.</li>
+                <li>You can test endpoints using <strong>Postman</strong> or <strong>curl</strong>.</li>
+                <li>Store your <strong>access and refresh tokens</strong> securely on your server.</li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

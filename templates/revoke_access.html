@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Revoke Access</h2>
+
+    <h4>Users</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td>{{ u.username }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.role }}</td>
+                <td>
+                    {% if u.role != 'admin' %}
+                    <a href="{{ url_for('revoke_user', user_id=u.id) }}" class="btn btn-danger btn-sm">Revoke</a>
+                    {% else %}
+                    <span class="text-muted">Admin</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4 class="mt-5">Apps</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>App Name</th>
+                <th>Owner</th>
+                <th>Client ID</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in apps %}
+            <tr>
+                <td>{{ a.name }}</td>
+                <td>{{ a.owner if a.owner else 'Unknown' }}</td>
+
+
+                <td>{{ a.client_id }}</td>
+                <td>
+                    <a href="{{ url_for('revoke_app', app_id=a.id) }}" class="btn btn-danger btn-sm">Revoke</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

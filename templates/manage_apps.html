@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>All Apps</h2>
+    {% if apps %}
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>App ID</th>
+                <th>Name</th>
+                <th>Owner ID</th>
+                <th>Client ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in apps %}
+            <tr>
+                <td>{{ app.id }}</td>
+                <td>{{ app.name }}</td>
+                <td>{{ app.owner_id }}</td>
+                <td>{{ app.client_id }}</td>
+                <td>
+                    <!-- Optional actions -->
+                    <a href="/admin/revoke/app/{{app.id}}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No apps registered yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

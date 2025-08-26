@@ -1,0 +1,115 @@
+/* ---------------- Dashboard Container ---------------- */
+.dashboard-container {
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* ---------------- Header ---------------- */
+.dashboard-header h2 {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+    color: var(--primary-color);
+}
+
+.dashboard-header .account-type {
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+
+/* ---------------- Dashboard Row ---------------- */
+.dashboard-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+/* ---------------- Dashboard Card ---------------- */
+.dashboard-card {
+    background-color: var(--card-bg, #fff);
+    border: 1px solid var(--card-border, #ddd);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card.full-width {
+    flex: 1 1 100%;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* Card Header */
+.dashboard-card .card-header {
+    background-color: var(--card-header-bg, #f7f7f7);
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--card-border, #ddd);
+}
+
+/* Card Body */
+.dashboard-card .card-body {
+    padding: 1rem;
+}
+
+/* ---------------- App List ---------------- */
+.app-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.app-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.app-list li:last-child {
+    border-bottom: none;
+}
+
+.app-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* ---------------- Buttons ---------------- */
+.btn-block {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.btn {
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ---------------- Empty Message ---------------- */
+.empty-message {
+    color: var(--text-muted, #888);
+    font-style: italic;
+    margin: 0.5rem 0;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+    .dashboard-row {
+        flex-direction: column;
+    }
+}

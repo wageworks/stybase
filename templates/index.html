@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Stybase - One Account for Everything{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="display-4">Welcome to Stybase</h1>
+    <p class="lead">Create one account to login across all our services and apps.</p>
+
+    {% if 'user_id' not in session %}
+    <div class="mt-4">
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-3">
+            <i class="fas fa-user-plus"></i> Register
+        </a>
+        <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+    </div>
+    {% else %}
+    <div class="mt-4">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-success btn-lg">
+            <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

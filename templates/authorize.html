@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Authorize App | Stybase{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg p-4" style="max-width: 640px; width: 100%; border-radius: 16px;">
+    <div class="text-center mb-4">
+      <i class="fas fa-plug fa-3x text-primary mb-3"></i>
+      <h3 class="fw-bold mb-1">Authorize Application</h3>
+      <p class="text-muted mb-0">
+        <strong class="text-dark">{{ client_name }}</strong> is requesting access to your Stybase account.
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <h6 class="fw-semibold">Permissions Requested</h6>
+      {% if permissions %}
+        <ul class="list-group list-group-flush">
+          {% for perm in permissions %}
+          <li class="list-group-item d-flex align-items-center">
+            <i class="fas fa-check-circle me-2"></i>
+            <span>{{ perm | capitalize }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="alert alert-light border">
+          <small class="text-muted mb-0">No special permissions requested.</small>
+        </div>
+      {% endif %}
+    </div>
+
+    <form method="POST" action="{{ url_for('oauth.authorize') }}">
+      <!-- Preserve all params on POST -->
+      <input type="hidden" name="client_id" value="{{ client_id }}">
+      <input type="hidden" name="redirect_uri" value="{{ redirect_uri }}">
+      <input type="hidden" name="scope" value="{{ scope }}">
+      <input type="hidden" name="state" value="{{ state }}">
+      <input type="hidden" name="response_type" value="code">
+
+      <div class="d-flex gap-3 mt-4">
+        <button type="submit" name="action" value="approve" class="btn btn-success flex-fill rounded-pill shadow-sm">
+          <i class="fas fa-check"></i> Approve
+        </button>
+        <button type="submit" name="action" value="deny" class="btn btn-outline-danger flex-fill rounded-pill shadow-sm">
+          <i class="fas fa-times"></i> Deny
+        </button>
+      </div>
+    </form>
+
+    <div class="text-center mt-3">
+      <small class="text-muted">You’re signed in as <strong>{{ session.get('username') }}</strong>.</small>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Login | Stybase{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Login to Stybase</h2>
+
+    
+
+    <form method="POST" action="{{ url_for('login') }}" class="mx-auto" style="max-width: 400px;">
+        <div class="mb-3">
+            <label for="username_or_email" class="form-label">Username or Email</label>
+            <input type="text" class="form-control" id="username" name="username_or_email" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="remember" name="remember">
+            <label class="form-check-label" for="remember">Remember Me</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+
+        <p class="mt-3 text-center">Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.</p>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+stybase/
+│
+├── app.py                 # Main Flask app
+├── db.py                  # Database initialization and connection
+├── config.py              # Config variables (secret keys, DB path, etc.)
+├── requirements.txt       # Python dependencies
+│
+├── templates/             # Jinja2 HTML templates
+│   ├── base.html          # Base template with nav/footer
+│   ├── index.html         # Landing page
+│   ├── register.html      # User registration
+│   ├── login.html         # User login
+│   ├── dashboard.html     # Dashboard for users & developers
+│   ├── authorize.html     # OAuth authorize page
+│   ├── profile.html       # User profile/settings
+│   ├── about.html         # About page
+│   ├── terms.html         # Terms of service
+│   ├── privacy.html       # Privacy policy
+│   └── 404.html           # Optional custom 404 page
+│
+├── static/
+│   ├── css/
+│   │   ├── style.css      # Global styles
+│   │   └── dashboard.css  # Dashboard-specific styles
+│   ├── js/
+│   │   ├── main.js        # Global JS
+│   │   └── dashboard.js   # Dashboard-specific JS
+│   └── images/            # Logos, icons, placeholders
+│
+├── api/
+│   └── oauth.py
+|   |__handle_requests.py           # Optional: API endpoints for client registration, user info
+│
+├── utils/
+│   ├── auth.py            # Helper functions: login_required, role_required
+│   └── security.py        # Password hashing, token generation
+│
+├── logs/
+│   └── access.log          # Optional: auth logs / audit logs
+│
+└── migrations/            # Optional: DB migration scripts if using Alembic
