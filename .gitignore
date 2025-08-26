@@ -1,0 +1,25 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# SQLite databases
+*.db
+*.sqlite3
+
+# Python virtual environments
+venv/
+env/
+
+# Flask instance and config
+instance/
+.env
+
+# VS Code and other editor settings
+.vscode/
+*.code-workspace
+
+# System files (Windows/macOS)
+.DS_Store
+Thumbs.db
